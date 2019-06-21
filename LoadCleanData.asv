@@ -1,0 +1,14 @@
+A = xlsread('breast-cancer-winsconsin-data');
+A(:,1) = [];
+CategoriesNum = A(:, end);
+Categories = cell(size(A, 1));
+% Replace NaN ('?' in the dataset) with the most frequent value
+ColModeVals = mode(A);
+for i = 1 : size(A,1)
+    for j = 1 : size(A,2)
+        if isnan(A(i, j))
+            A(i, j) = A(j);
+        end
+    end
+    % also create
+end

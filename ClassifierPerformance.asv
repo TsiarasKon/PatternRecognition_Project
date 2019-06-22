@@ -52,7 +52,7 @@ fprintf("  Sensitivity: %f\n", cp.Sensitivity);
 fprintf("  Specificity: %f\n\n", cp.Specificity);
 
 cp = classperf(Y);
-disp("Naive Bayes (normal):");
+disp("Naive Bayes results:");
 for i = 1:10
     test = (indices == i); 
     train = ~test;
@@ -65,7 +65,7 @@ fprintf("  Sensitivity: %f\n", cp.Sensitivity);
 fprintf("  Specificity: %f\n\n", cp.Specificity);
 
 cp = classperf(Y);
-disp("Naive Bayes (kernel):");
+disp("Naive Bayes results:");
 for i = 1:10
     test = (indices == i); 
     train = ~test;
@@ -78,7 +78,7 @@ fprintf("  Sensitivity: %f\n", cp.Sensitivity);
 fprintf("  Specificity: %f\n\n", cp.Specificity);
 
 cp = classperf(Y);
-disp("SVM results (linear):");
+disp("SVM results:");
 for i = 1:10
     test = (indices == i); 
     train = ~test;
@@ -91,20 +91,7 @@ fprintf("  Sensitivity: %f\n", cp.Sensitivity);
 fprintf("  Specificity: %f\n\n", cp.Specificity);
 
 cp = classperf(Y);
-disp("SVM results (rbf):");
-for i = 1:10
-    test = (indices == i); 
-    train = ~test;
-    model = fitcsvm(X(train, :), Y(train), 'KernelFunction', 'rbf');
-    predictions = predict(model, X(test, :));
-    classperf(cp, predictions, test);
-end
-fprintf("  Accuracy: %f\n", cp.CorrectRate);
-fprintf("  Sensitivity: %f\n", cp.Sensitivity);
-fprintf("  Specificity: %f\n\n", cp.Specificity);
-
-cp = classperf(Y);
-disp("Decision Tree (allsplits):");
+disp("Decision Tree results:");
 for i = 1:10
     test = (indices == i); 
     train = ~test;
@@ -116,15 +103,3 @@ fprintf("  Accuracy: %f\n", cp.CorrectRate);
 fprintf("  Sensitivity: %f\n", cp.Sensitivity);
 fprintf("  Specificity: %f\n\n", cp.Specificity);
 
-cp = classperf(Y);
-disp("Decision Tree (curvature):");
-for i = 1:10
-    test = (indices == i); 
-    train = ~test;
-    model = fitctree(X(train, :), Y(train), 'PredictorSelection', 'curvature');
-    predictions = predict(model, X(test, :));
-    classperf(cp, predictions, test);
-end
-fprintf("  Accuracy: %f\n", cp.CorrectRate);
-fprintf("  Sensitivity: %f\n", cp.Sensitivity);
-fprintf("  Specificity: %f\n\n", cp.Specificity);

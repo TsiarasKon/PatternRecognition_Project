@@ -2,16 +2,17 @@
 indices = crossvalind('Kfold', Y, 10);
 
 %{
-having already split our data to k equal partitions,
+having already split our data to k equal splits,
 for each classifier:
     1) Create a classperf class (cp) using the true categories values
-    for each partition:
-        2a) train the classifier using the k-1 other partitions
+    for each split:
+        2a) train the classifier using the k-1 other splits
         2b) use the remaining 1 as test set to make predictions
         2c) update cp with the current prediction
     3) Print Accuracy, Sensitivity and Specificity for the classifier
 %}
 
+% KNN
 cp = classperf(Y);
 disp("KNN (3 neighbors):");
 for i = 1:10
@@ -51,6 +52,7 @@ fprintf("  Accuracy: %f\n", cp.CorrectRate);
 fprintf("  Sensitivity: %f\n", cp.Sensitivity);
 fprintf("  Specificity: %f\n\n", cp.Specificity);
 
+% Naive Bayes
 cp = classperf(Y);
 disp("Naive Bayes (normal):");
 for i = 1:10
@@ -77,8 +79,9 @@ fprintf("  Accuracy: %f\n", cp.CorrectRate);
 fprintf("  Sensitivity: %f\n", cp.Sensitivity);
 fprintf("  Specificity: %f\n\n", cp.Specificity);
 
+% SVM
 cp = classperf(Y);
-disp("SVM results (linear):");
+disp("SVM (linear):");
 for i = 1:10
     test = (indices == i); 
     train = ~test;
@@ -91,7 +94,7 @@ fprintf("  Sensitivity: %f\n", cp.Sensitivity);
 fprintf("  Specificity: %f\n\n", cp.Specificity);
 
 cp = classperf(Y);
-disp("SVM results (rbf):");
+disp("SVM (rbf):");
 for i = 1:10
     test = (indices == i); 
     train = ~test;
@@ -103,6 +106,7 @@ fprintf("  Accuracy: %f\n", cp.CorrectRate);
 fprintf("  Sensitivity: %f\n", cp.Sensitivity);
 fprintf("  Specificity: %f\n\n", cp.Specificity);
 
+% Decision Tree
 cp = classperf(Y);
 disp("Decision Tree (allsplits):");
 for i = 1:10
